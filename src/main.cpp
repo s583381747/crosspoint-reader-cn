@@ -42,15 +42,21 @@ GfxRenderer renderer(display);
 FontDecompressor fontDecompressor;
 Activity* currentActivity;
 
-// Fonts — Pretendard Korean (Regular only, 12/14/16/18pt)
+// Fonts — Pretendard Korean (sans-serif, 12/14/16pt)
 EpdFont pretendard12RegularFont(&pretendard_12_regular);
 EpdFontFamily pretendard12FontFamily(&pretendard12RegularFont);
 EpdFont pretendard14RegularFont(&pretendard_14_regular);
 EpdFontFamily pretendard14FontFamily(&pretendard14RegularFont);
 EpdFont pretendard16RegularFont(&pretendard_16_regular);
 EpdFontFamily pretendard16FontFamily(&pretendard16RegularFont);
-EpdFont pretendard18RegularFont(&pretendard_18_regular);
-EpdFontFamily pretendard18FontFamily(&pretendard18RegularFont);
+
+// Fonts — Noto Serif KR (serif, 12/14/16pt)
+EpdFont notoserif12RegularFont(&notoserif_12_regular);
+EpdFontFamily notoserif12FontFamily(&notoserif12RegularFont);
+EpdFont notoserif14RegularFont(&notoserif_14_regular);
+EpdFontFamily notoserif14FontFamily(&notoserif14RegularFont);
+EpdFont notoserif16RegularFont(&notoserif_16_regular);
+EpdFontFamily notoserif16FontFamily(&notoserif16RegularFont);
 
 EpdFont smallFont(&notosans_8_regular);
 EpdFontFamily smallFontFamily(&smallFont);
@@ -203,11 +209,14 @@ void setupDisplayAndFonts() {
     LOG_ERR("MAIN", "Font decompressor init failed");
   }
   renderer.setFontDecompressor(&fontDecompressor);
-  // Pretendard Korean font
+  // Pretendard Korean (sans-serif)
   renderer.insertFont(PRETENDARD_12_FONT_ID, pretendard12FontFamily);
   renderer.insertFont(PRETENDARD_14_FONT_ID, pretendard14FontFamily);
   renderer.insertFont(PRETENDARD_16_FONT_ID, pretendard16FontFamily);
-  renderer.insertFont(PRETENDARD_18_FONT_ID, pretendard18FontFamily);
+  // Noto Serif KR (serif)
+  renderer.insertFont(NOTOSERIF_12_FONT_ID, notoserif12FontFamily);
+  renderer.insertFont(NOTOSERIF_14_FONT_ID, notoserif14FontFamily);
+  renderer.insertFont(NOTOSERIF_16_FONT_ID, notoserif16FontFamily);
   renderer.insertFont(UI_10_FONT_ID, ui10FontFamily);
   renderer.insertFont(UI_12_FONT_ID, ui12FontFamily);
   renderer.insertFont(SMALL_FONT_ID, smallFontFamily);

@@ -308,15 +308,29 @@ int CrossPointSettings::getReaderFontId() const {
 }
 
 int CrossPointSettings::getBuiltInReaderFontId() const {
-  switch (fontSize) {
-    case SMALL:
-      return PRETENDARD_12_FONT_ID;
-    case MEDIUM:
+  switch (fontFamily) {
+    case PRETENDARD:
     default:
-      return PRETENDARD_14_FONT_ID;
-    case LARGE:
-      return PRETENDARD_16_FONT_ID;
-    case EXTRA_LARGE:
-      return PRETENDARD_18_FONT_ID;
+      switch (fontSize) {
+        case SMALL:
+          return PRETENDARD_12_FONT_ID;
+        case MEDIUM:
+        default:
+          return PRETENDARD_14_FONT_ID;
+        case LARGE:
+        case EXTRA_LARGE:
+          return PRETENDARD_16_FONT_ID;
+      }
+    case NOTO_SERIF_KR:
+      switch (fontSize) {
+        case SMALL:
+          return NOTOSERIF_12_FONT_ID;
+        case MEDIUM:
+        default:
+          return NOTOSERIF_14_FONT_ID;
+        case LARGE:
+        case EXTRA_LARGE:
+          return NOTOSERIF_16_FONT_ID;
+      }
   }
 }

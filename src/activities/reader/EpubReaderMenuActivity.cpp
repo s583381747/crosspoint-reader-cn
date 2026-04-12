@@ -11,11 +11,11 @@
 #include "fontIds.h"
 
 namespace {
-constexpr int kBuiltinReaderFontCount = 1;
+constexpr int kBuiltinReaderFontCount = 2;
 constexpr CrossPointSettings::FONT_FAMILY kBuiltinReaderFonts[kBuiltinReaderFontCount] = {
-    CrossPointSettings::PRETENDARD};
+    CrossPointSettings::PRETENDARD, CrossPointSettings::NOTO_SERIF_KR};
 constexpr StrId kBuiltinReaderFontLabels[kBuiltinReaderFontCount] = {
-    StrId::STR_PRETENDARD};
+    StrId::STR_PRETENDARD, StrId::STR_NOTO_SERIF_KR};
 }  // namespace
 
 void EpubReaderMenuActivity::onEnter() {
