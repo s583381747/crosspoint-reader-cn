@@ -11,11 +11,11 @@
 #include "fontIds.h"
 
 namespace {
-constexpr int kBuiltinReaderFontCount = 3;
+constexpr int kBuiltinReaderFontCount = 1;
 constexpr CrossPointSettings::FONT_FAMILY kBuiltinReaderFonts[kBuiltinReaderFontCount] = {
-    CrossPointSettings::BOOKERLY, CrossPointSettings::NOTOSANS, CrossPointSettings::OPENDYSLEXIC};
-constexpr StrId kBuiltinReaderFontLabels[kBuiltinReaderFontCount] = {StrId::STR_BOOKERLY, StrId::STR_NOTO_SANS,
-                                                                     StrId::STR_OPEN_DYSLEXIC};
+    CrossPointSettings::PRETENDARD};
+constexpr StrId kBuiltinReaderFontLabels[kBuiltinReaderFontCount] = {
+    StrId::STR_PRETENDARD};
 }  // namespace
 
 void FontSelectActivity::onEnter() {
