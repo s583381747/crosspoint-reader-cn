@@ -212,7 +212,7 @@ bool JsonSettingsIO::loadSettings(CrossPointSettings& s, const char* json, bool*
       clamp(doc["hideBatteryPercentage"] | (uint8_t)S::HIDE_NEVER, S::HIDE_BATTERY_PERCENTAGE_COUNT, S::HIDE_NEVER);
   s.longPressChapterSkip = doc["longPressChapterSkip"] | (uint8_t)1;
   s.hyphenationEnabled = doc["hyphenationEnabled"] | (uint8_t)0;
-  s.uiTheme = doc["uiTheme"] | (uint8_t)S::LYRA;
+  s.uiTheme = (uint8_t)S::LYRA_3_COVERS;
   s.fadingFix = doc["fadingFix"] | (uint8_t)0;
   s.embeddedStyle = doc["embeddedStyle"] | (uint8_t)1;
   s.uiOrientation = clamp(doc["uiOrientation"] | (uint8_t)S::UI_PORTRAIT, (uint8_t)2, S::UI_PORTRAIT);

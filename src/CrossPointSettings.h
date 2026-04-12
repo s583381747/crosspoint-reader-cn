@@ -107,7 +107,7 @@ class CrossPointSettings {
   // 100 = 1.0x (default), 80 = 0.8x, 250 = 2.5x.
   static constexpr uint8_t LINE_SPACING_MIN = 80;
   static constexpr uint8_t LINE_SPACING_MAX = 250;
-  static constexpr uint8_t LINE_SPACING_DEFAULT = 100;
+  static constexpr uint8_t LINE_SPACING_DEFAULT = 110;
   enum PARAGRAPH_ALIGNMENT {
     JUSTIFIED = 0,
     LEFT_ALIGN = 1,
@@ -144,7 +144,7 @@ class CrossPointSettings {
   enum HIDE_BATTERY_PERCENTAGE { HIDE_NEVER = 0, HIDE_READER = 1, HIDE_ALWAYS = 2, HIDE_BATTERY_PERCENTAGE_COUNT };
 
   // UI Theme
-  enum UI_THEME { CLASSIC = 0, LYRA = 1, LYRA_3_COVERS = 2 };
+  enum UI_THEME { LYRA_3_COVERS = 0 };
 
   // Color mode (light/dark)
   enum COLOR_MODE { LIGHT_MODE = 0, DARK_MODE = 1 };
@@ -202,7 +202,7 @@ class CrossPointSettings {
   // Long-press chapter skip on side buttons
   uint8_t longPressChapterSkip = 1;
   // UI Theme
-  uint8_t uiTheme = LYRA;
+  uint8_t uiTheme = LYRA_3_COVERS;
   // Sunlight fading compensation
   uint8_t fadingFix = 0;
   // Use book's embedded CSS styles for EPUB rendering (1 = enabled, 0 = disabled)
