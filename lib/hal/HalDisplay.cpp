@@ -7,7 +7,13 @@ HalDisplay::HalDisplay() : einkDisplay(EPD_SCLK, EPD_MOSI, EPD_CS, EPD_DC, EPD_R
 
 HalDisplay::~HalDisplay() {}
 
-void HalDisplay::begin() { einkDisplay.begin(); }
+void HalDisplay::begin() {
+  // Hardcoded X3 panel mode — this fork targets Xteink X3 only.
+  // Without setDisplayX3(), the driver assumes X4 (800x480 BWR with different
+  // BUSY polarity), which causes BUSY-pin timeouts and a stuck display on X3.
+  einkDisplay.setDisplayX3();
+  einkDisplay.begin();
+}
 
 void HalDisplay::clearScreen(uint8_t color) const { einkDisplay.clearScreen(color); }
 
