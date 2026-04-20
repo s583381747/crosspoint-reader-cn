@@ -32,7 +32,11 @@ class GfxRenderer {
   };
 
  private:
-  static constexpr size_t BW_BUFFER_CHUNK_SIZE = 8000;  // 8KB chunks to allow for non-contiguous memory
+  // Chunk size is chosen to divide BUFFER_SIZE evenly so the static_assert
+  // passes. For X3 BUFFER_SIZE=52272, 8712 yields exactly 6 chunks of ~8.5KB.
+  // For X4 BUFFER_SIZE=48000, 8000 yielded 6 chunks of 8KB. Purpose remains:
+  // tolerate heap fragmentation by avoiding a single contiguous ~50KB alloc.
+  static constexpr size_t BW_BUFFER_CHUNK_SIZE = 8712;
   static constexpr size_t BW_BUFFER_NUM_CHUNKS = HalDisplay::BUFFER_SIZE / BW_BUFFER_CHUNK_SIZE;
   static_assert(BW_BUFFER_CHUNK_SIZE * BW_BUFFER_NUM_CHUNKS == HalDisplay::BUFFER_SIZE,
                 "BW buffer chunking does not line up with display buffer size");

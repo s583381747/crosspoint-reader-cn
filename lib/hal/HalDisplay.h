@@ -20,11 +20,16 @@ class HalDisplay {
   // Initialize the display hardware and driver
   void begin();
 
-  // Display dimensions
-  static constexpr uint16_t DISPLAY_WIDTH = EInkDisplay::DISPLAY_WIDTH;
-  static constexpr uint16_t DISPLAY_HEIGHT = EInkDisplay::DISPLAY_HEIGHT;
-  static constexpr uint16_t DISPLAY_WIDTH_BYTES = DISPLAY_WIDTH / 8;
-  static constexpr uint32_t BUFFER_SIZE = DISPLAY_WIDTH_BYTES * DISPLAY_HEIGHT;
+  // Display dimensions — hardcoded to X3 (792x528).
+  // This fork targets Xteink X3 only; rendering code uses these compile-time
+  // constants for buffer stride and layout, so they MUST match the panel
+  // geometry set by einkDisplay.setDisplayX3() in begin(). Using X4 (800x480)
+  // here against an X3 panel produces a ~1-byte-per-row stride mismatch that
+  // shows up as diagonal (~30°) tearing.
+  static constexpr uint16_t DISPLAY_WIDTH = EInkDisplay::X3_DISPLAY_WIDTH;        // 792
+  static constexpr uint16_t DISPLAY_HEIGHT = EInkDisplay::X3_DISPLAY_HEIGHT;      // 528
+  static constexpr uint16_t DISPLAY_WIDTH_BYTES = DISPLAY_WIDTH / 8;              // 99
+  static constexpr uint32_t BUFFER_SIZE = DISPLAY_WIDTH_BYTES * DISPLAY_HEIGHT;   // 52272
 
   // Frame buffer operations
   void clearScreen(uint8_t color = 0xFF) const;
