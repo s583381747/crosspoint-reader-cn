@@ -330,5 +330,17 @@ int CrossPointSettings::getReaderFontId() const {
         case EXTRA_LARGE:
           return OPENDYSLEXIC_14_FONT_ID;
       }
+    case CHINESE:
+      switch (fontSize) {
+        case SMALL:
+          return CHINESE_14_FONT_ID;
+        case MEDIUM:
+        default:
+          return CHINESE_14_FONT_ID;
+        case LARGE:
+          return CHINESE_16_FONT_ID;
+        case EXTRA_LARGE:
+          return CHINESE_18_FONT_ID;
+      }
   }
 }

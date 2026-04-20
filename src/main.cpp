@@ -111,6 +111,14 @@ EpdFontFamily opendyslexic14FontFamily(&opendyslexic14RegularFont, &opendyslexic
                                        &opendyslexic14BoldItalicFont);
 #endif  // OMIT_FONTS
 
+// Chinese (Noto Sans SC) — regular only; no bold/italic variants needed.
+EpdFont chinese14RegularFont(&chinese_14_regular);
+EpdFontFamily chinese14FontFamily(&chinese14RegularFont);
+EpdFont chinese16RegularFont(&chinese_16_regular);
+EpdFontFamily chinese16FontFamily(&chinese16RegularFont);
+EpdFont chinese18RegularFont(&chinese_18_regular);
+EpdFontFamily chinese18FontFamily(&chinese18RegularFont);
+
 EpdFont smallFont(&notosans_8_regular);
 EpdFontFamily smallFontFamily(&smallFont);
 
@@ -218,6 +226,10 @@ void setupDisplayAndFonts() {
   renderer.insertFont(OPENDYSLEXIC_12_FONT_ID, opendyslexic12FontFamily);
   renderer.insertFont(OPENDYSLEXIC_14_FONT_ID, opendyslexic14FontFamily);
 #endif  // OMIT_FONTS
+
+  renderer.insertFont(CHINESE_14_FONT_ID, chinese14FontFamily);
+  renderer.insertFont(CHINESE_16_FONT_ID, chinese16FontFamily);
+  renderer.insertFont(CHINESE_18_FONT_ID, chinese18FontFamily);
   renderer.insertFont(UI_10_FONT_ID, ui10FontFamily);
   renderer.insertFont(UI_12_FONT_ID, ui12FontFamily);
   renderer.insertFont(SMALL_FONT_ID, smallFontFamily);

@@ -16,3 +16,9 @@
 #define UI_10_FONT_ID (22918846)
 #define UI_12_FONT_ID (1635686837)
 #define SMALL_FONT_ID (674098198)
+
+// Chinese font IDs: placeholder values overwritten by build-font-ids.sh
+// after chinese_*_regular.h files are generated in CI pre-build step.
+#define CHINESE_14_FONT_ID (100000001)
+#define CHINESE_16_FONT_ID (100000002)
+#define CHINESE_18_FONT_ID (100000003)

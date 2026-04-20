@@ -4,6 +4,9 @@ on:
     tags:
       - '*'
 
+permissions:
+  contents: write
+
 jobs:
   build-release:
     runs-on: ubuntu-latest
@@ -16,6 +19,10 @@ jobs:
         with:
           python-version: '3.14'
 
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+
       - name: Install uv
         uses: astral-sh/setup-uv@v7
         with:
@@ -24,6 +31,39 @@ jobs:
 
       - name: Install PlatformIO Core
         run: uv pip install --system -U https://github.com/pioarduino/platformio-core/archive/refs/tags/v6.1.19.zip
+
+      - name: Install font generation deps
+        run: uv pip install --system freetype-py==2.5.1 fonttools
+
+      - name: Download Noto Sans SC source font
+        run: |
+          mkdir -p /tmp/fonts
+          # Noto Sans SC Regular (Simplified Chinese) — TTF version from Google Fonts
+          curl -sL -o /tmp/fonts/NotoSansSC-Regular.ttf \
+            "https://github.com/googlefonts/noto-cjk/raw/main/Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Regular.otf"
+          ls -la /tmp/fonts/
+
+      - name: Generate Chinese bitmap fonts
+        run: |
+          cd lib/EpdFont/scripts
+          for size in 14 16 18; do
+            echo "Generating chinese_${size}_regular.h ..."
+            python fontconvert.py chinese_${size}_regular $size /tmp/fonts/NotoSansSC-Regular.ttf \
+              --2bit --compress --force-autohint \
+              --additional-intervals 0x4E00,0x9FFF \
+              --additional-intervals 0x3000,0x303F \
+              --additional-intervals 0xFF00,0xFFEF \
+              --additional-intervals 0x2E80,0x2EFF \
+              > ../builtinFonts/chinese_${size}_regular.h
+            wc -c ../builtinFonts/chinese_${size}_regular.h
+          done
+
+      - name: Regenerate font IDs after Chinese fonts added
+        run: |
+          cd lib/EpdFont/scripts
+          bash build-font-ids.sh > ../../../src/fontIds.h
+          echo "--- fontIds.h ---"
+          cat ../../../src/fontIds.h
 
       - name: Build CrossPoint
         run: pio run -e gh_release
@@ -38,3 +78,20 @@ jobs:
             .pio/build/gh_release/firmware.elf
             .pio/build/gh_release/firmware.map
             .pio/build/gh_release/partitions.bin
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: CrossPoint X3 CN ${{ github.ref_name }}
+          files: |
+            .pio/build/gh_release/bootloader.bin
+            .pio/build/gh_release/firmware.bin
+            .pio/build/gh_release/partitions.bin
+          body: |
+            CrossPoint X3 with embedded Simplified Chinese font (Noto Sans SC).
+
+            Partition layout: single 14.87 MB app slot (no OTA), 1 MB SPIFFS.
+            Flash all three bins together via local flasher (bootloader.bin @ 0x0,
+            partitions.bin @ 0x8000, firmware.bin @ 0x10000).
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
